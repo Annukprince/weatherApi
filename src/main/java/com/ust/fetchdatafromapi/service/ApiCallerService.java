@@ -1,7 +1,9 @@
 package com.ust.fetchdatafromapi.service;
 
-import com.ust.fetchdatafromapi.response.SearchByMeal;
+
+import com.ust.fetchdatafromapi.response.SearchByCity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -12,14 +14,16 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @RequiredArgsConstructor
 public class ApiCallerService {
 
-    private final RestClient restClient;
+    @Autowired
+    RestClient restClient;
 
-    // https://www.themealdb.com/api/json/v1/1/search.php?s=chicken
-    public SearchByMeal searchMealByName(String meal) {
+    // https://api.oceandrivers.com:443/v1.0/getAemetStation/aeropuertopalma/lastdata/
+    public SearchByCity searchWeatherByCity(String city) {
+        System.out.println(city);
         return restClient.get()
-                .uri("/search.php?s={meal}", meal)
+                .uri("/{city}/lastdata", city)
                 .retrieve()
-                .body(SearchByMeal.class);
+                .body(SearchByCity.class);
     }
 
 }
