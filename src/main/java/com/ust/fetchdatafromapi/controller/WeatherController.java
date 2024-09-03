@@ -14,11 +14,18 @@ public class WeatherController {
 
     private final ApiCallerService apiCallerService;
 
-    @GetMapping("/{city}")
-    public ResponseEntity<SearchByCity> getWeatherByCity(@PathVariable String city) {
-        SearchByCity weatherData = apiCallerService.searchWeatherByCity(city);
+    @GetMapping("/search")
+    public ResponseEntity<SearchByCity> searchWeatherByCity(@RequestParam String stationName , @RequestParam String period) {
+        System.out.println(stationName);
+        SearchByCity weatherData = apiCallerService.searchWeatherByCity(stationName , period);
         return ResponseEntity.ok(weatherData);
     }
+
+//    @GetMapping
+//    public ResponseEntity<SearchByCity> getWeatherByCity(@RequestParam String city) {
+//        SearchByCity weatherData = apiCallerService.searchWeatherByCity(city);
+//        return ResponseEntity.ok(weatherData);
+//    }
 
 
 
